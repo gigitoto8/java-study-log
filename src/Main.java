@@ -1,9 +1,10 @@
+import java.nio.charset.StandardCharsets;
 import java.util.Scanner;
 
 public class Main{
     public static void main(String[] args) {
 
-        Scanner sc = new Scanner(System.in);
+        Scanner sc = new Scanner(System.in,StandardCharsets.UTF_8);
 
         System.out.print("日付を入力　：　");
         String date = sc.nextLine();
@@ -16,6 +17,9 @@ public class Main{
 
         System.out.print("メモ　：　");
         String memo = sc.nextLine();
+
+        //文字化け検証
+        System.out.println(memo);
 
         StudyRecord record = new StudyRecord(
             date,subject, minutes, memo);
