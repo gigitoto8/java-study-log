@@ -3,7 +3,6 @@
 ## このリポジトリについて  
 2026/03/14、Oracle Certified Associate, Java SE 17 Programmer I  
 を取得したが、勤務先等でJavaを使う機会がない。  
-このままではスキルを活かすことができず、資格取得が無駄になる。  
 そこで、資格取得を通じて得た知識を活用したアプリを制作することで、  
 スキルアップを図ることとした。  
 補足  
@@ -38,12 +37,16 @@ CSV対応・学習ログ管理ツール（CUIベース）
   
 # STEP1  
 - 構成を作成⇒各ファイルをコーディング⇒学習記録をCSVに1件保存する機能を実装  
-  
+現時点では、データはインスタンス生成の際、コンストラクタで登録。
+
 java-study-log/  
  ├ src/  
- │   ├ Main.java  
- │   ├ StudyRecord.java  
- │   └ CsvService.java  
+ │   ├ Main.java:実行  
+ │   ├ StudyRecord.java:データ取扱い  
+ │   └ CsvService.java:CSVファイル操作  
  └ data/  
      └ study_log.csv（自動生成）  
-  
+
+# STEP2  
+- Main.javaにて、データをコンソール入力で登録する処理に修正。
+- CsvCervice.javaにて、文字化け対策のため一部修正。
