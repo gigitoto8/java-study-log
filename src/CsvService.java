@@ -1,5 +1,5 @@
 import java.io.File;
-import java.io.FileWriter;
+import java.io.FileWriter;      
 import java.io.IOException;
 
 public class CsvService{
@@ -7,12 +7,13 @@ public class CsvService{
 
     public void save(StudyRecord record){
 
-        File file = new File(FILE_PATH);
-        boolean isNewFile = !file.exists();
+        File file = new File(FILE_PATH);        
+        boolean isNotFile = !file.exists();     //CSVファイルの有無をチェック
 
         try (FileWriter fw = new FileWriter(FILE_PATH,true)){
 
-            if(isNewFile){
+            //ファイルが存在しない場合、
+            if(isNotFile){
                 fw.write("date,subject,minutes,memo \n");
             }
             fw.write(record.toCsv() + "\n");
