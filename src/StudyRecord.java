@@ -4,6 +4,7 @@ public class StudyRecord {
     private int minutes;        //学習時間
     private String memo;        //メモ
 
+    //コンストラクタ
     public StudyRecord(String date,String subject,int minutes,String memo){
         this.date = date;
         this.subject = subject;
@@ -11,8 +12,16 @@ public class StudyRecord {
         this.memo = memo;
     }
 
+    //CSV保存
     public String toCsv(){
         return date + "," + subject + "," + minutes + "," + memo;
     }
+
+    //表示用フォーマット定めて返すメソッド。定めない場合、ハッシュ値が表示される。
+    @Override
+    public String toString() {
+        return date + " | " + subject + " | " + minutes + "分 | " + memo;
+    }
+
 
 }

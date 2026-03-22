@@ -1,18 +1,30 @@
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileOutputStream;
-//import java.io.FileWriter;        //FileWriterは文字コードを指定できない（環境依存）
+//ファイル操作
 import java.io.IOException;
+import java.io.File;
+import java.io.BufferedWriter;
+import java.io.FileOutputStream;
 import java.io.OutputStreamWriter;
+//import java.io.FileWriter;        //FileWriterは文字コードを指定できない（環境依存）
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.InputStreamReader;
+
+//文字化け
 import java.nio.charset.StandardCharsets;
+
+//リスト
+import java.util.ArrayList;
+import java.util.List;
 
 public class CsvService{
     private static final String FILE_PATH = "data/study_log_02.csv";
 
+    //ファイル保存
     public void save(StudyRecord record){
 
         File file = new File(FILE_PATH);
-        boolean isNotFile = !file.exists();     //CSVファイルの有無をチェック
+        //CSVファイルの有無をチェック
+        boolean isNotFile = !file.exists();     
 
         try (BufferedWriter bw = new BufferedWriter(
             new OutputStreamWriter(
@@ -31,19 +43,62 @@ public class CsvService{
                 bw.write("date,subject,minutes,memo \n");
             }
 
-            bw.write(record.toCsv());        //CSVに文字列を一行追加。
-            bw.newLine();
-
-            //↓文字化け検証
-            System.out.println(java.nio.charset.Charset.defaultCharset());
-            bw.write("あいうえお");
+            //CSVに文字列を一行追加。
+            bw.write(record.toCsv());        
             bw.newLine();
 
             System.out.println("保存しました");
 
         }catch(IOException e) {
             System.out.println("ファイル書き込みエラー");
-            e.printStackTrace();        //エラー詳細を出す
+            //エラー詳細を出す
+            e.printStackTrace();        
         }
+    }
+
+    //ファイル読み込み
+    public List<StudyRecord> findAll(){
+
+        //リスト（読み込みデータを入れる箱）準備
+        List<StudyRecord> list = new ArrayList<>(); 
+
+        try(BufferedReader br = new BufferedReader(
+            new InputStreamReader(
+                new FileInputStream(FILE_PATH),
+                StandardCharsets.UTF_8))){
+            /*
+                -FileInputStream:バイト読み込み
+                -InputStreamReader:UTF-8で文字に変換
+                -BufferedReader:一行単位で読む    
+            */        
+            
+            String line;
+
+            //ファイルの終わりまで一行ずつ読む。
+            while((line = br.readLine()) != null){
+
+                //1行目（カラム名）を無視
+                if(line.startsWith("date")){
+                    continue;
+                }
+
+                //","区切りで文字列を分解
+                String[] data = line.split(",");
+
+                String date = data[0];
+                String subject = data[1];
+                int minutes = Integer.parseInt(data[2]);
+                String memo = data[3];
+
+                //オブジェクト化
+                StudyRecord record = new StudyRecord(date, subject, minutes, memo);
+                //listに追加
+                list.add(record);
+            }
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return list;
     }
 }
