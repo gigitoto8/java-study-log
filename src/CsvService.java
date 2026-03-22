@@ -1,6 +1,9 @@
+import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileWriter;
+import java.io.FileOutputStream;
+//import java.io.FileWriter;        //FileWriterは文字コードを指定できない（環境依存）
 import java.io.IOException;
+import java.io.OutputStreamWriter;
 
 public class CsvService{
     private static final String FILE_PATH = "data/study_log.csv";
@@ -10,15 +13,28 @@ public class CsvService{
         File file = new File(FILE_PATH);
         boolean isNotFile = !file.exists();     //CSVファイルの有無をチェック
 
-        try (FileWriter fw = new FileWriter(FILE_PATH,true)){
-            //ファイルが存在する場合、ファイルを開く。存在しない場合、ファイルを新規作成。
+        try (BufferedWriter bw = new BufferedWriter(
+            new OutputStreamWriter(
+                new FileOutputStream(FILE_PATH,true), "UTF-8"))){
+            /*
+                CSVファイルの文字化け対策。UTF-8で安全に高速にファイルへ追記する処理に修正。
+                -FileOutputStream:ファイルが存在する場合、ファイルを開く。存在しない場合、ファイルを新規作成。
+                    ファイルにバイトを書き込む。
+                -OutputStreamWriter:UTF-8変換
+                -BufferedWriter:まとめて書く。そうすることで高速処理を行う。
+            */
+
 
             //ファイルが存在しない場合、一行目にヘッダ挿入
             if(isNotFile){
-                fw.write("date,subject,minutes,memo \n");
+                bw.write("date,subject,minutes,memo \n");
             }
-            fw.write(record.toCsv() + "\n");        //CSVに文字列を一行追加。
+
+            bw.write(record.toCsv() + "\n");        //CSVに文字列を一行追加。
+
+
             System.out.println("保存しました");
+
         }catch(IOException e) {
             System.out.println("ファイル書き込みエラー");
             e.printStackTrace();        //エラー詳細を出す
