@@ -8,11 +8,10 @@ public class CsvService{
     public void save(StudyRecord record){
 
         File file = new File(FILE_PATH);
-        boolean isNewFile = !file.exists();     //CSVファイルの有無をチェック
+        boolean isNewFile = !file.exists();
 
         try (FileWriter fw = new FileWriter(FILE_PATH,true)){
 
-            //ファイルが存在しない場合、ファイル作成と一行目にヘッダ挿入
             if(isNewFile){
                 fw.write("date,subject,minutes,memo \n");
             }
