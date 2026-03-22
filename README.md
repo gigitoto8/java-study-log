@@ -50,3 +50,8 @@ java-study-log/
 # STEP2  
 - Main.javaにて、データをコンソール入力で登録する処理に修正。
 - CsvCervice.javaにて、文字化け対策のため一部修正。
+
+# STEP3  
+- Main.javaにて、データ入力後にCSVデータ内容を表示させる処理を追加。
+- CsvCervice.javaにて、CSVからデータを読み込み、StudyRecordのリストに変換する処理を追加。
+- StudyRecord.javaにて、表示用フォーマットを定める処理を追加。
