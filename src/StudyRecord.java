@@ -1,8 +1,8 @@
 public class StudyRecord {
-    private String date;        //実施日
-    private String subject;     //科目
-    private int minutes;        //実施時間
-    private String memo;        //メモ、補足事項等
+    private String date;
+    private String subject;
+    private int minutes;
+    private String memo;
 
     public StudyRecord(String date,String subject,int minutes,String memo){
         this.date = date;
