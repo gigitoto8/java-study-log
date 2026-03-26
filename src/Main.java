@@ -15,20 +15,58 @@ public class Main{
         int minutes = Integer.parseInt(sc.nextLine());
         System.out.print("メモ　：　");
         String memo = sc.nextLine();
-
+        
         //入力して保存
         StudyRecord record = new StudyRecord(
             date,subject, minutes, memo);
-        CsvService service = new CsvService();
+            CsvService service = new CsvService();
         service.save(record);
         
-        sc.close();
-
+        
         //CSVから読み込んだデータをList形式に変換
         List<StudyRecord> list = service.findAll();
-
+        
         for(StudyRecord r : list){
             System.out.println(r);
         }
+        
+        //検索（科目のみ）
+        /*
+        list = service.findBySubject("Java");
+        for(StudyRecord r : list){
+            System.out.println(r);
+            }
+        */
+        
+        //検索（日付、科目、メモ）
+        String field;
+
+        //科目入力
+        while(true){
+            System.out.print("次の内、検索したい項目を入力\n [\"subject\" , \"date\" , \"memo\" ] : ");
+            field = sc.nextLine();
+            if((field.equals("subject")) || (field.equals("date")) 
+                || (field.equals("memo"))){
+                break;
+            }
+            System.out.println("入力値が不正です。もう一度入力してください。");
+        }
+        
+        //検索ワード入力
+        System.out.print("検索ワード入力　：　");
+        String value = sc.nextLine();
+        
+        list = service.findByCondition(field,value);
+        
+        //検索結果表示
+        if(!(list.isEmpty())){
+            for(StudyRecord r : list){
+                System.out.println(r);
+            }
+        }else{
+            System.out.println("該当なし");
+        }
+
+        sc.close();        
     }
 }

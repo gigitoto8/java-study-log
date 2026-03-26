@@ -23,5 +23,18 @@ public class StudyRecord {
         return date + " | " + subject + " | " + minutes + "分 | " + memo;
     }
 
+    //getter
+    public String getDate(){
+        return date;
+    }
+    public String getSubject(){
+        return subject;
+    }
+    public String getMemo(){
+        return memo;
+    }
+
+
+
 
 }

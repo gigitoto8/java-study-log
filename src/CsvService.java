@@ -101,4 +101,43 @@ public class CsvService{
 
         return list;
     }
+
+    //検索（科目のみ）
+    /*
+    public List<StudyRecord> findBySubject(String targetSubject) {
+        
+        List<StudyRecord> all = findAll();
+        List<StudyRecord> result = new ArrayList<>();
+        
+        for (StudyRecord r : all) {
+            if (r.getSubject().equals(targetSubject)) {
+                result.add(r);
+            }
+        }
+        
+        return result;
+    }
+    */
+
+    //検索（日付、科目、メモ）
+    public List<StudyRecord> findByCondition(String field,String value) {
+        
+        List<StudyRecord> all = findAll();
+        List<StudyRecord> result = new ArrayList<>();
+        
+        for (StudyRecord r : all) {
+            if (field.equals("date") && r.getDate().equals(value)) {
+                result.add(r);
+            }else if (field.equals("subject") && r.getSubject().equals(value)) {
+                result.add(r);
+            }else if (field.equals("memo") && r.getMemo().contains(value)) {
+                result.add(r);
+            }else{
+                
+            }
+        }
+        
+        return result;
+    }
+    
 }
