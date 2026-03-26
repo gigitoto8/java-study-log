@@ -55,3 +55,14 @@ java-study-log/
 - Main.javaにて、データ入力後にCSVデータ内容を表示させる処理を追加。
 - CsvCervice.javaにて、CSVからデータを読み込み、StudyRecordのリストに変換する処理を追加。
 - StudyRecord.javaにて、表示用フォーマットを定める処理を追加。
+
+# STEP4  
+- 検索機能追加。  
+Main.javaにて、検索項目と検索ワードをコンソール入力させる処理を追加。  
+項目の入力値が不正である場合は再度入力させる処理、  
+検索ワードに該当するものがない場合の表示を含む。  
+CsvCervice.javaにて、指定項目および検索ワードを抽出する処理を追加。  
+StudyRecord.javaにて、ゲッターを追加。  
+  
+  
+  
