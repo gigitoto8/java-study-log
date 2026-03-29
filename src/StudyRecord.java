@@ -30,6 +30,9 @@ public class StudyRecord {
     public String getSubject(){
         return subject;
     }
+    public int getMinutes(){
+        return minutes;
+    }
     public String getMemo(){
         return memo;
     }
