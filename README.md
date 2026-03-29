@@ -38,7 +38,7 @@ CSV対応・学習ログ管理ツール（CUIベース）
 # STEP1  
 - 構成を作成⇒各ファイルをコーディング⇒学習記録をCSVに1件保存する機能を実装  
 現時点では、データはインスタンス生成の際、コンストラクタで登録。
-
+  
 java-study-log/  
  ├ src/  
  │   ├ Main.java:実行  
@@ -46,23 +46,31 @@ java-study-log/
  │   └ CsvService.java:CSVファイル操作  
  └ data/  
      └ study_log.csv（自動生成）  
-
+  
 # STEP2  
 - Main.javaにて、データをコンソール入力で登録する処理に修正。
 - CsvCervice.javaにて、文字化け対策のため一部修正。
-
+  
 # STEP3  
-- Main.javaにて、データ入力後にCSVデータ内容を表示させる処理を追加。
-- CsvCervice.javaにて、CSVからデータを読み込み、StudyRecordのリストに変換する処理を追加。
-- StudyRecord.javaにて、表示用フォーマットを定める処理を追加。
-
+- Csvデータ表示機能追加。
+Main.javaにて、CSVデータ内容を表示させる処理を追加。
+CsvCervice.javaにて、findAllメソッド（CSVからデータを読み込む機能）を追加。  
+- StudyRecord.javaにて、表示用フォーマットを定める処理を追加。  
+  
 # STEP4  
 - 検索機能追加。  
-Main.javaにて、検索項目と検索ワードをコンソール入力させる処理を追加。  
-項目の入力値が不正である場合は再度入力させる処理、  
+Main.javaにて、検索項目と検索ワードをコンソール入力させる処理と、  
+該当するレコードを表示させるを追加。  
+なお、項目の入力値が不正である場合は再度入力させる処理、  
 検索ワードに該当するものがない場合の表示を含む。  
-CsvCervice.javaにて、指定項目および検索ワードを抽出する処理を追加。  
+CsvCervice.javaにて、findByConditionメソッド  
+（指定項目および検索ワードを抽出する機能）を追加。  
 StudyRecord.javaにて、ゲッターを追加。  
   
+# STEP5  
+- 科目別の学習時間集計機能を追加。  
+Main.javaにて、subBySubjectメソッドで得られた結果を表示させる処理を追加。  
+CsvCervice.javaにて、sumBySubjectメソッド（科目毎の総学習時間を集計する機能）を追加。  
   
+他、StudyRecord.javaにて、findByConditionに学習時間を検索するコードを失念していたため、それを追加。
   
