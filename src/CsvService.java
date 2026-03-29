@@ -105,23 +105,6 @@ public class CsvService{
         return list;
     }
 
-    //検索（科目のみ）
-    /*
-    public List<StudyRecord> findBySubject(String targetSubject) {
-        
-        List<StudyRecord> all = findAll();
-        List<StudyRecord> result = new ArrayList<>();
-        
-        for (StudyRecord r : all) {
-            if (r.getSubject().equals(targetSubject)) {
-                result.add(r);
-            }
-        }
-        
-        return result;
-    }
-    */
-
     //検索（日付、科目、学習時間、メモ）
     public List<StudyRecord> findByCondition(String field,String value) {
         
