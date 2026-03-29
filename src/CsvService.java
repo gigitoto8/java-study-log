@@ -8,6 +8,9 @@ import java.io.OutputStreamWriter;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
+//Map
+import java.util.Map;
+import java.util.HashMap;
 
 //文字化け
 import java.nio.charset.StandardCharsets;
@@ -119,24 +122,55 @@ public class CsvService{
     }
     */
 
-    //検索（日付、科目、メモ）
+    //検索（日付、科目、学習時間、メモ）
     public List<StudyRecord> findByCondition(String field,String value) {
         
         List<StudyRecord> all = findAll();
         List<StudyRecord> result = new ArrayList<>();
         
         for (StudyRecord r : all) {
-            if (field.equals("date") && r.getDate().equals(value)) {
-                result.add(r);
-            }else if (field.equals("subject") && r.getSubject().equals(value)) {
-                result.add(r);
-            }else if (field.equals("memo") && r.getMemo().contains(value)) {
-                result.add(r);
-            }else{
-                
-            }
+
+            //if文は、valueがallから得た値と一致するかを確認（memoのみvalueの単語が含まれているか否か）
+            switch(field){
+                case "date":
+                    if(r.getDate().equals(value)){
+                        result.add(r);
+                    }
+                    break;
+                case "subject":
+                    if(r.getSubject().equals(value)){
+                        result.add(r);
+                    }
+                case "minutes":
+                    if(String.valueOf(r.getMinutes()).equals(value)){
+                        result.add(r);
+                    }
+                case "memo":
+                    if(r.getMemo().contains(value)){
+                        result.add(r);
+                    }
+            }    
         }
         
+        return result;
+    }
+
+    //科目ごとの学習時間集計。Map形式の戻り値を返す
+    public Map<String,Integer> sumBySubject(){
+        List<StudyRecord> all = findAll();
+        Map<String,Integer> result = new HashMap<>();
+
+        for(StudyRecord r : all){
+            String subject = r.getSubject();
+            int minutes = r.getMinutes();
+
+            if(result.containsKey(subject)){
+                result.put(subject,result.get(subject) + minutes);
+            }else{
+                result.put(subject,minutes);
+            }
+        }
+
         return result;
     }
     

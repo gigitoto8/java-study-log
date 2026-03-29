@@ -1,10 +1,12 @@
 import java.nio.charset.StandardCharsets;
 import java.util.Scanner;
 import java.util.List;
+import java.util.Map;
 
 public class Main{
     public static void main(String[] args) {
 
+        //各項目入力
         Scanner sc = new Scanner(System.in,StandardCharsets.UTF_8);
 
         System.out.print("日付を入力　：　");
@@ -19,16 +21,19 @@ public class Main{
         //入力して保存
         StudyRecord record = new StudyRecord(
             date,subject, minutes, memo);
-            CsvService service = new CsvService();
+        CsvService service = new CsvService();
         service.save(record);
-        
-        
+            
+        System.out.println("----------------");
+            
         //CSVから読み込んだデータをList形式に変換
         List<StudyRecord> list = service.findAll();
-        
+            
         for(StudyRecord r : list){
             System.out.println(r);
         }
+            
+        System.out.println("----------------");
         
         //検索（科目のみ）
         /*
@@ -37,16 +42,16 @@ public class Main{
             System.out.println(r);
             }
         */
-        
-        //検索（日付、科目、メモ）
-        String field;
 
-        //科目入力
+        //検索（日付、科目、学習時間、メモ）
+        String field;        
+
+        //検索項目名入力
         while(true){
-            System.out.print("次の内、検索したい項目を入力\n [\"subject\" , \"date\" , \"memo\" ] : ");
+            System.out.print("次の内、検索したい項目を入力\n [ \"subject\" , \"date\" , \"minutes\" , \"memo\" ] : ");
             field = sc.nextLine();
             if((field.equals("subject")) || (field.equals("date")) 
-                || (field.equals("memo"))){
+                || (field.equals("minutes")) || (field.equals("memo"))){
                 break;
             }
             System.out.println("入力値が不正です。もう一度入力してください。");
@@ -66,6 +71,17 @@ public class Main{
         }else{
             System.out.println("該当なし");
         }
+
+        System.out.println("----------------");
+
+        //科目別学習時間集計表示
+        Map<String,Integer> map = service.sumBySubject();
+
+        for(String key : map.keySet()){
+            System.out.println(key + " : " + map.get(key) + "分");
+        }
+
+        System.out.println("----------------");
 
         sc.close();        
     }
