@@ -37,7 +37,7 @@ CSV対応・学習ログ管理ツール（CUIベース）
   
 # STEP1  
 - 構成を作成⇒各ファイルをコーディング⇒学習記録をCSVに1件保存する機能を実装  
-現時点では、データはインスタンス生成の際、コンストラクタで登録。
+現時点では、データはインスタンス生成の際に登録。
   
 java-study-log/  
  ├ src/  
@@ -55,7 +55,7 @@ java-study-log/
 - Csvデータ表示機能追加。
 Main.javaにて、CSVデータ内容を表示させる処理を追加。
 CsvCervice.javaにて、findAllメソッド（CSVからデータを読み込む機能）を追加。  
-- StudyRecord.javaにて、表示用フォーマットを定める処理を追加。  
+StudyRecord.javaにて、表示用フォーマットを定める処理を追加。  
   
 # STEP4  
 - 検索機能追加。  
@@ -72,11 +72,15 @@ StudyRecord.javaにて、ゲッターを追加。
 Main.javaにて、subBySubjectメソッドで得られた結果を表示させる処理を追加。  
 CsvCervice.javaにて、sumBySubjectメソッド（科目毎の総学習時間を集計する機能）を追加。  
   
-他、StudyRecord.javaにて、findByConditionに学習時間を検索するコードを失念していたため、それを追加。
+他、StudyRecord.javaにて、findByConditionに学習時間を検索するコードを失念していたため追加。  
   
 # STEP6  
-- 入力チェック機能追加  
-入力値チェック機能を有するInputValidator.javaを追加。
-当機能活用のため、Main.javaを修正。
+- 入力チェック機能追加。  
+入力値チェック機能を有するInputValidator.javaをsrcディレクトリに追加。  
+当機能活用のため、Main.javaを修正。  
+  
+# STEP7  
+- アプリ起動直後、以下の動作を行うよう修正。  
+機能を選択する画面を表示 → 選択した機能を実行 → 選択画面に戻る（終了を選択するまで繰り返す）  
+選択項目は、STEP2からSTEP5で実装した機能と、終了する処理からなる。  
 
-他、CsvService.javaから不要箇所を削除
