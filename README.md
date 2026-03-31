@@ -30,22 +30,19 @@ CSV対応・学習ログ管理ツール（CUIベース）
 ・まずはCUIで実装（GUIやWeb化は後回し）  
 - 設計方針  
 クラス分割を意識する  
- 　・StudyRecord（データクラス）  
- 　・CsvService（ファイル操作）  
- 　・StudyService（ロジック）  
- 　・Main（実行・メニュー）  
-  
-# STEP1  
-- 構成を作成⇒各ファイルをコーディング⇒学習記録をCSVに1件保存する機能を実装  
-現時点では、データはインスタンス生成の際に登録。
   
 java-study-log/  
  ├ src/  
  │   ├ Main.java:実行  
  │   ├ StudyRecord.java:データ取扱い  
- │   └ CsvService.java:CSVファイル操作  
+ │   ├ CsvService.java:CSVファイル操作  
+ │   └ InputValidator.java:入力値チェック  
  └ data/  
      └ study_log.csv（自動生成）  
+  
+# STEP1  
+- 構成を作成⇒各ファイルをコーディング⇒学習記録をCSVに1件保存する機能を実装  
+現時点では、データはインスタンス生成の際に登録。
   
 # STEP2  
 - Main.javaにて、データをコンソール入力で登録する処理に修正。
